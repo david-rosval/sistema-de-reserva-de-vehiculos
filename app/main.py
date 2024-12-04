@@ -2,13 +2,13 @@ from fastapi import FastAPI, HTTPException
 from app.factories import VehicleFactory
 from app.builders import VehicleBuilder
 from app.proxies import ReservationProxy
-from app.strategies import SimplePricingStrategy
+from app.strategies import SimplePricingStrategy, DiscountPricingStrategy
+
 
 app = FastAPI()
 
 # Crear instancias de los patrones
 factory = VehicleFactory()
-pricing_strategy = SimplePricingStrategy()
 proxy = ReservationProxy()
 
 @app.get("/")
@@ -25,9 +25,15 @@ def reserve_vehicle(vehicle_type: str, duration: int):
     try:
         # Crear el vehículo usando Factory Method
         vehicle = factory.create_vehicle(vehicle_type)
+
+        # Seleccionar estrategia de precios
+        if duration > 5:
+            strategy = DiscountPricingStrategy()  # Estrategia con descuento
+        else:
+            strategy = SimplePricingStrategy()  # Estrategia básica
         
         # Calcular precio usando Strategy
-        price = pricing_strategy.calculate_price(vehicle, duration)
+        price = strategy.calculate_price(vehicle, duration)
         
         # Registrar la reserva usando Proxy
         reservation = proxy.reserve(vehicle, duration, price)
@@ -58,8 +64,14 @@ def customize_vehicle(vehicle_type: str, duration: int, add_basket: bool = False
         # Construir y retornar el vehículo configurado
         vehicle = builder.build()
 
+        # Seleccionar estrategia de precios
+        if duration > 5:
+            strategy = DiscountPricingStrategy()  # Estrategia con descuento
+        else:
+            strategy = SimplePricingStrategy()  # Estrategia básica
+        
         # Calcular precio usando Strategy
-        price = pricing_strategy.calculate_price(vehicle, duration)
+        price = strategy.calculate_price(vehicle, duration)
         
         # Registrar la reserva usando Proxy
         reservation = proxy.reserve(vehicle, duration, price)

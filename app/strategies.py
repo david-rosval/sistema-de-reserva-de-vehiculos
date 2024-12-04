@@ -26,15 +26,3 @@ class DiscountPricingStrategy(PricingStrategy):
         return base_price
 
 
-class DemandPricingStrategy(PricingStrategy):
-    """
-    Estrategia dinámica: incrementa el precio en un 50% durante alta demanda.
-    """
-    def __init__(self, high_demand: bool):
-        self.high_demand = high_demand
-
-    def calculate_price(self, vehicle, duration: int) -> float:
-        base_price = vehicle.base_price * duration
-        if self.high_demand:
-            base_price *= 1.5  # Incrementa el precio en un 50% si hay alta demanda
-        return base_price
