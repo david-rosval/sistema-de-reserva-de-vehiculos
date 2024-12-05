@@ -66,12 +66,12 @@ INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 
 #### **Endpoints Principales**
 
-- **`POST /reserve`**: Reserva un vehículo.
+- **`POST /reservar`**: Reserva un vehículo.
   - Parámetros:
     - `vehicle_type`: Tipo de vehículo (`"bicycle"` o `"scooter"`).
     - `duration`: Duración de la reserva en horas.
 
-- **`POST /customize`**: Personaliza un vehículo (si está habilitado en el código).
+- **`POST /personalizar-reserva`**: Personaliza un vehículo (si está habilitado en el código).
 
 ### **6. Cerrar el Entorno Virtual**
 
