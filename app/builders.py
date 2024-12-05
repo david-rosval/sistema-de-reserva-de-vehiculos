@@ -1,25 +1,24 @@
-from app.factories import Bicycle, Scooter  # Importar las clases desde factories.py
+from app.factories import Bicicleta, Scooter  # Importar las clases desde factories.py
 
 class VehicleBuilder:
     def __init__(self):
         self.vehicle = None
 
-    def create_vehicle(self, vehicle_type: str):
-        if vehicle_type == "bicycle":
-            self.vehicle = Bicycle()
+    def crear_vehiculo(self, vehicle_type: str):
+        if vehicle_type == "bicicleta":
+            self.vehicle = Bicicleta()
         elif vehicle_type == "scooter":
             self.vehicle = Scooter()
         else:
-            raise ValueError("Invalid vehicle type")
+            raise ValueError("Tipo de vehículo no válido")
         return self
 
-    def add_basket(self):
-        if self.vehicle.name == "Bicycle":
-            self.vehicle.name += " with Basket"
+    def agregar_canasta(self):
+        self.vehicle.name += " + Canasta"
         return self
 
-    def add_helmet(self):
-        self.vehicle.name += " + Helmet"
+    def agregar_casco(self):
+        self.vehicle.name += " + Casco"
         return self
 
     def build(self):

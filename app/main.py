@@ -15,66 +15,66 @@ proxy = ReservationProxy()
 def read_root():
     return {"message": "Sistema de Reserva de Vehículos"}
 
-@app.post("/reserve")
-def reserve_vehicle(vehicle_type: str, duration: int):
+@app.post("/reservar")
+def reservar_vehicle(tipo_vehiculo: str, duracion: int):
     """
     Endpoint para reservar un vehículo.
-    - `vehicle_type`: "bicycle" o "scooter".
-    - `duration`: Duración de la reserva en horas.
+    - `tipo_vehiculo`: "bicycle" o "scooter".
+    - `duracion`: Duración de la reserva en horas.
     """
     try:
         # Crear el vehículo usando Factory Method
-        vehicle = factory.create_vehicle(vehicle_type)
+        vehiculo = factory.crear_vehiculo(tipo_vehiculo)
 
         # Seleccionar estrategia de precios
-        if duration > 5:
+        if duracion > 5:
             strategy = DiscountPricingStrategy()  # Estrategia con descuento
         else:
             strategy = SimplePricingStrategy()  # Estrategia básica
         
         # Calcular precio usando Strategy
-        price = strategy.calculate_price(vehicle, duration)
+        precio = strategy.calcular_precio(vehiculo, duracion)
         
         # Registrar la reserva usando Proxy
-        reservation = proxy.reserve(vehicle, duration, price)
+        reservation = proxy.reservar(vehiculo, duracion, precio)
         return reservation
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 builder = VehicleBuilder()
 
-@app.post("/customize-reservation")
-def customize_vehicle(vehicle_type: str, duration: int, add_basket: bool = False, add_helmet: bool = False):
+@app.post("/personalizar-reserva")
+def customize_vehicle(tipo_vehiculo: str, duracion: int, agregar_canasta: bool = False, agregar_casco: bool = False):
     """
     Endpoint para personalizar un vehículo.
-    - `vehicle_type`: Tipo de vehículo ("bicycle" o "scooter").
-    - `add_basket`: Si el vehículo debe incluir una canasta.
-    - `add_helmet`: Si el vehículo debe incluir un casco.
+    - `tipo_vehiculo`: Tipo de vehículo ("bicicleta" o "scooter").
+    - `agregar_canasta`: Si el vehículo debe incluir una canasta.
+    - `agregar_casco`: Si el vehículo debe incluir un casco.
     """
     try:
         # Crear el vehículo base usando el Builder
-        builder.create_vehicle(vehicle_type)
+        builder.crear_vehiculo(tipo_vehiculo)
         
         # Añadir configuraciones opcionales
-        if add_basket:
-            builder.add_basket()
-        if add_helmet:
-            builder.add_helmet()
+        if agregar_canasta:
+            builder.agregar_canasta()
+        if agregar_casco:
+            builder.agregar_casco()
         
         # Construir y retornar el vehículo configurado
-        vehicle = builder.build()
+        vehiculo = builder.build()
 
         # Seleccionar estrategia de precios
-        if duration > 5:
+        if duracion > 5:
             strategy = DiscountPricingStrategy()  # Estrategia con descuento
         else:
             strategy = SimplePricingStrategy()  # Estrategia básica
         
         # Calcular precio usando Strategy
-        price = strategy.calculate_price(vehicle, duration)
+        precio = strategy.calcular_precio(vehiculo, duracion)
         
         # Registrar la reserva usando Proxy
-        reservation = proxy.reserve(vehicle, duration, price)
-        return reservation
+        reserva = proxy.reservar(vehiculo, duracion, precio)
+        return reserva
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

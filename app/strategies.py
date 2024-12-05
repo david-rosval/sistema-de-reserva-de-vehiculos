@@ -3,7 +3,7 @@ class PricingStrategy:
     Clase base para las estrategias de cálculo de precios.
     Define la interfaz común para todas las estrategias.
     """
-    def calculate_price(self, vehicle, duration: int) -> float:
+    def calcular_precio(self, vehiculo, duracion: int) -> float:
         raise NotImplementedError("This method should be overridden in a subclass.")
 
 
@@ -11,18 +11,18 @@ class SimplePricingStrategy(PricingStrategy):
     """
     Estrategia básica: calcula el precio multiplicando el precio base del vehículo por la duración.
     """
-    def calculate_price(self, vehicle, duration: int) -> float:
-        return vehicle.base_price * duration
+    def calcular_precio(self, vehiculo, duracion: int) -> float:
+        return vehiculo.precio_base * duracion
 
 
 class DiscountPricingStrategy(PricingStrategy):
     """
     Estrategia con descuento: aplica un descuento del 20% si la reserva es de más de 5 horas.
     """
-    def calculate_price(self, vehicle, duration: int) -> float:
-        base_price = vehicle.base_price * duration
-        if duration > 5:
-            base_price *= 0.8  # Aplica un descuento del 20%
-        return base_price
+    def calcular_precio(self, vehiculo, duracion: int) -> float:
+        precio_base = vehiculo.precio_base * duracion
+        if duracion > 5:
+            precio_base *= 0.8  # Aplica un descuento del 20%
+        return precio_base
 
 

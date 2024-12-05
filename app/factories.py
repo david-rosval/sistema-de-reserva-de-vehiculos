@@ -1,29 +1,29 @@
 from typing import Union
 
-class Vehicle:
-    def __init__(self, name: str, base_price: float):
+class Vehiculo:
+    def __init__(self, name: str, precio_base: float):
         self.name = name
-        self.base_price = base_price
+        self.precio_base = precio_base
 
     def __str__(self):
-        return f"{self.name} (Base Price: ${self.base_price})"
+        return f"{self.name} (Precio base: S/.{self.precio_base})"
 
-class Bicycle(Vehicle):
+class Bicicleta(Vehiculo):
     def __init__(self):
-        super().__init__("Bicycle", 5.0)
+        super().__init__("Bicicleta", 5.0)
 
-class Scooter(Vehicle):
+class Scooter(Vehiculo):
     def __init__(self):
         super().__init__("Scooter", 10.0)
 
 class VehicleFactory:
-    def create_vehicle(self, vehicle_type: str) -> Union[Bicycle, Scooter]:
+    def crear_vehiculo(self, tipo_vehiculo: str) -> Union[Bicicleta, Scooter]:
         """
         Crea un vehículo basado en el tipo.
         """
-        if vehicle_type == "bicycle":
-            return Bicycle()
-        elif vehicle_type == "scooter":
+        if tipo_vehiculo == "bicicleta":
+            return Bicicleta()
+        elif tipo_vehiculo == "scooter":
             return Scooter()
         else:
-            raise ValueError(f"Unknown vehicle type: {vehicle_type}")
+            raise ValueError(f"Tipo de vehículo desconocido: {tipo_vehiculo}")

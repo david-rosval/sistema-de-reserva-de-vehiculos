@@ -1,12 +1,12 @@
 class ReservationProxy:
     def __init__(self):
-        self.reservations = []
+        self.reservas = []
 
-    def reserve(self, vehicle, duration, price):
-        reservation = {
-            "vehicle": str(vehicle),
-            "duration": duration,
-            "price": price,
+    def reservar(self, vehicle, duration, price):
+        reserva = {
+            "vehiculo": str(vehicle),
+            "duracion": duration,
+            "precio": price,
         }
-        self.reservations.append(reservation)
-        return reservation
+        self.reservas.append(reserva)
+        return reserva
