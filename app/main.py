@@ -19,7 +19,7 @@ def read_root():
 def reservar_vehicle(tipo_vehiculo: str, duracion: int):
     """
     Endpoint para reservar un vehículo.
-    - `tipo_vehiculo`: "bicycle" o "scooter".
+    - `tipo_vehiculo`: "bicicleta" o "scooter".
     - `duracion`: Duración de la reserva en horas.
     """
     try:
