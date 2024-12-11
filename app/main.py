@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from app.factories import VehicleFactory
 from app.builders import VehicleBuilder
 from app.proxies import ReservationProxy
@@ -6,6 +7,15 @@ from app.strategies import SimplePricingStrategy, DiscountPricingStrategy
 
 
 app = FastAPI()
+
+# Configuración del middleware de CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Crear instancias de los patrones
 factory = VehicleFactory()
