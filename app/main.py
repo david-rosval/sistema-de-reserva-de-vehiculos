@@ -48,8 +48,8 @@ def customize_vehicle(tipo_vehiculo: str, duracion: int, agregar_canasta: bool =
     """
     Endpoint para personalizar un vehículo.
     - `tipo_vehiculo`: Tipo de vehículo ("bicicleta" o "scooter").
-    - `agregar_canasta`: Si el vehículo debe incluir una canasta.
-    - `agregar_casco`: Si el vehículo debe incluir un casco.
+    - `agregar_canasta`: Si el vehículo debe incluir una canasta (true) o no (false).
+    - `agregar_casco`: Si el vehículo debe incluir un casco (true) o no (false).
     """
     try:
         # Crear el vehículo base usando el Builder
